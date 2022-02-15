@@ -93,9 +93,31 @@ export default new Vuex.Store({
   東京ヤクルトスワローズ（2006年〜）`
       ),
     ],
-
-    mutations: {},
-    actions: {},
-    modules: {},
   },
+
+  mutations: {},
+  getters: {
+    /**
+     * チーム一覧を返す.
+     *
+     * @returns チーム情報一覧
+     */
+    getTeams(state) {
+      return state.teams;
+    },
+    /**
+     * IDからチームを検索し返す.
+     *
+     * @returns 検索されたチーム情報
+     */
+    getTeamById(state) {
+      // 渡されたIDで絞り込んだTeamオブジェクトを1件返す
+      return (teamId: number) => {
+        const teams = state.teams.filter((team: Team) => team.id === teamId);
+        return teams[0];
+      };
+    },
+  },
+  actions: {},
+  modules: {},
 });

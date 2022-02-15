@@ -4,8 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/Ex01">演習1</router-link> |
+      <router-view />
     </div>
-    <router-view />
   </div>
 </template>
 
