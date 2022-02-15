@@ -8,7 +8,6 @@
     <div>{{ selectTeam.headquarters }}</div>
     <div class="title">発足日</div>
     <div>
-      {{ selectTeam.inauguration }}
       {{ selectTeam.formatInauguration }}
     </div>
     <div class="title">歴史</div>
@@ -23,11 +22,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Team } from "@/types/team";
 import { format } from "date-fns";
-import ja from "date-fns/locale/ja";
 
 @Component
 export default class Ex01Detail extends Vue {
   private selectTeam!: Team;
+
   /**
    * VuexストアのGetter経由で受け取ったリクエストパラメータのIDから１件のチーム情報を取得する.
    *
@@ -43,15 +42,6 @@ export default class Ex01Detail extends Vue {
    */
   backPage(): void {
     this.$router.push("/Ex01");
-  }
-  /**
-   * 発足日をformatする.
-   *
-   */
-  formatInauguration(): void {
-    format(new Date(this.$store.state.inauguration), "yyyy年MM月dd日", {
-      locale: ja,
-    });
   }
 }
 </script>
