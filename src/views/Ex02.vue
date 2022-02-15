@@ -8,15 +8,17 @@
       <table v-for="hotel of searchHotels" v-bind:key="hotel.id">
         <tr>
           <th>ホテル名</th>
-          <td>検索結果</td>
+          <td>
+            {{ hotel.hotelName }}
+          </td>
         </tr>
         <tr>
           <th>最寄駅</th>
-          <td>検索結果</td>
+          <td>{{ hotel.nearestStation }}</td>
         </tr>
         <tr>
           <th>価格</th>
-          <td>検索結果</td>
+          <td>{{ hotel.price }}</td>
         </tr>
       </table>
     </div>
@@ -25,11 +27,30 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { Hotel } from "@/types/hotel";
 @Component
-export default class XXXComponent extends Vue {
+export default class Ex02 extends Vue {
   private searchPrice = "";
   private searchHotels = [];
+
+  /**
+   * 価格で検索する.
+   *
+   * @returns 入力された値段以下のホテルを検索
+   */
+  search(): void {
+    let searchPriceNumber = parseInt(this.searchPrice);
+    this.searchHotels = this.$store.getters.getHotelByPrice(searchPriceNumber);
+    if (this.searchPrice === "") {
+      // 結果が0件なら全件検索
+      this.searchHotels = this.$store.getters.getHotels;
+    }
+  }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+  border: solid;
+}
+</style>
