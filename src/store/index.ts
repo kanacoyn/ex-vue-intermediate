@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { Team } from "@/types/team";
+import { Hotel } from "@/types/hotel";
 
 Vue.use(Vuex);
 
@@ -93,6 +94,54 @@ export default new Vuex.Store({
   東京ヤクルトスワローズ（2006年〜）`
       ),
     ],
+
+    hotels: [
+      new Hotel(
+        10,
+        "首都圏",
+        "横浜ベイホテル東急",
+        "神奈川県横浜市西区みなとみらい２－３－７",
+        "桜木町駅",
+        10000,
+        true
+      ),
+      new Hotel(
+        20,
+        "首都圏",
+        "パレスホテル東京",
+        "東京都千代田区丸の内１丁目１−１",
+        "東京駅",
+        20000,
+        false
+      ),
+      new Hotel(
+        30,
+        "首都圏",
+        "ホテルローズガーデン新宿",
+        "東京都新宿区西新宿８−１−３",
+        "西新宿駅",
+        5000,
+        true
+      ),
+      new Hotel(
+        40,
+        "首都圏",
+        "渋谷エクセルホテル東急",
+        "東京都渋谷区道玄坂１−１２−２",
+        "渋谷駅",
+        10000,
+        false
+      ),
+      new Hotel(
+        50,
+        "首都圏",
+        "東京ベイ舞浜ホテル",
+        "千葉県浦安市舞浜１−３４",
+        "舞浜駅",
+        15000,
+        true
+      ),
+    ],
   },
 
   mutations: {},
@@ -115,6 +164,27 @@ export default new Vuex.Store({
       return (teamId: number) => {
         const teams = state.teams.filter((team: Team) => team.id === teamId);
         return teams[0];
+      };
+    },
+
+    /**
+     * ホテル一覧を返す.
+     * @returns ホテル一覧情報
+     */
+    getHotels(state) {
+      return state.hotels;
+    },
+    /**
+     * 値段からホテルを検索し返す.
+     *
+     * @returns 検索されたホテル一覧情報
+     */
+    getHotelByPrice(state) {
+      return (price: number) => {
+        const hotels = state.hotels.filter(
+          (hotel: Hotel) => hotel.price <= price
+        );
+        return hotels;
       };
     },
   },
